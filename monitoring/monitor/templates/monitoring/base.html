@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="uk">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Моніторинг судових рішень</title>
+		<meta name="description"
+			value="Система моніторингу судових рішень" />
+
+		<!-- Include Styles -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Javascripts Section -->
+    <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		
+
+    <!-- AngularJS !-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.28/angular-route.min.js"></script>
+    <!-- My App -->
+    <script src="{% static "js/app.js" %}"></script>
+		
+		
+		
+	</head>
+  	<body ng-app='MonitoringApp'>
+		<!-- Start Container -->
+		<div class="container">
+            <!-- Start Header -->
+            <div class="row" id = 'header'>
+                <div class="col-md-12" onclick="document.location = '/';">
+                    <h1>Моніторинг судових рішень</h1>
+                </div>
+            </div>
+            <!-- End Header -->
+
+            <div class="row" id="content-columns" ng-view style="margin-top: 15px; margin-bottom: 35px;" class='container'>
+
+                  
+
+            </div>
+         
+ 
+         
+
+			<!-- Start Footer -->
+			<div class="row" id="footer">
+				<div class="col-md-12">
+				&copy; 2015 Моніторинг судових рішень
+				</div>
+			</div>
+			<!-- End Footer -->
+
+
+		</div>
+		<!-- End Container -->
+		
+		
+		
+	 	</body>
+</html>
