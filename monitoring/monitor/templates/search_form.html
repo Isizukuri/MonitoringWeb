@@ -1,12 +1,13 @@
+
+<div class="col-md-12 alert alert-danger" role="alert">Єдиний державний реєстр судових рішень не працює з технічних причин, а тому пошук недоступний.</div>
+<div class="alert alert-warning" role="alert">Виявлено нестабільну роботу Єдиного державного реєстру судових рішень, у зв’язку з чим можливі труднощі.</div>
 <form class="form-horizontal" ng-controller='SearchInputController'>
                <p>{{ search_input }}</p>
                 <div class="form-group">
                   <label for="start_date" class="col-md-3 col-xs-12 control-label">Введіть початкову дату*:</label>
                   <div class="col-md-4 col-xs-12">
                     <input ng-model='search_input.start_date' type="date" class="form-control" id="start_date" placeholder="Початкова дата">
-                     <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+
                   </div>
                 </div>
 
@@ -35,7 +36,7 @@
                 <div class="form-group">
                   <label for="key_words" class="col-md-3 col-xs-12 control-label">За потреби, додайте ключові слова:</label>
                   <div class="col-md-4 col-xs-12">
-                    <textarea ng-model='search_input.key_words' class="form-control" rows="3" placeholder="По замовчуванню пошук проводитиметься за словами: дитин*, дітей, дитяч*, *літн*, неповнолітн*, малолітн*, батьківськ*, усиновл*, освіт*, оздоров*, навчальн*."></textarea>
+                    <textarea id='key_words' ng-model='search_input.key_words' class="form-control" rows="3" placeholder="По замовчуванню пошук проводитиметься за словами: дитин*, дітей, дитяч*, *літн*, неповнолітн*, малолітн*, батьківськ*, усиновл*, освіт*, оздоров*, навчальн*."></textarea>
                   </div>
                 </div>
         
