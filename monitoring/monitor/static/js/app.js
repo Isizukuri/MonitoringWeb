@@ -2,7 +2,8 @@ var app = angular.module('MonitoringApp', ['ngRoute']);
 app.config(function ($routeProvider) { 
   $routeProvider 
     .when('/', { 
-      templateUrl: 'search_form' 
+      templateUrl: 'search_form',
+      controller: 'SearchFormController' 
     }) 
   	.when('/search_results', { 
       templateUrl: 'django_search_results' 
