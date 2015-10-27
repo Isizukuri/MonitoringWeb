@@ -1,22 +1,27 @@
 <!-- Alerts -->
-<div class="col-md-12 alert alert-danger" role="alert">Єдиний державний реєстр судових рішень не працює з технічних причин, а тому пошук недоступний.</div>
-<div class="alert alert-warning" role="alert">Виявлено нестабільну роботу Єдиного державного реєстру судових рішень, у зв’язку з чим можливі труднощі.</div>
+<div class="col-md-12 alert alert-danger" role="alert" ng-show="">Єдиний державний реєстр судових рішень не працює з технічних причин, а тому пошук недоступний.</div>
+<div class="alert alert-warning" role="alert" ng-show="">Виявлено нестабільну роботу Єдиного державного реєстру судових рішень, у зв’язку з чим можливі труднощі.</div>
+<div class="alert alert-danger" role="alert" ng-show="">Перевірте правильність даних у формі та спробуйте ще раз!</div>
 <!-- End Alerts -->
 
 {% verbatim %}
 <!-- Search Form -->
+
 <form class="form-horizontal" name="search_form" ng-controller='SearchFormController' novalidate>
-    <div class="form-group" ng-class="{'has-success': search_input.start_date}">
+
+    <div class="form-group" ng-class="{'has-success': (search_form.start_date.$valid && search_form.start_date.$dirty), 'has-error': search_form.start_date.$invalid && search_form.start_date.$dirty}">
         <label for="start_date" class="col-md-3 col-xs-12 control-label">Введіть початкову дату*:</label>
         <div class="col-md-4 col-xs-12">
-            <input name='start_date' ng-model='search_input.start_date' type='date' class="form-control" id="start_date"  placeholder="Початкова дата" required></input>
+            <input name='start_date' ng-model='search_input.start_date' type='date' class="form-control" id="start_date"  placeholder='РРРР-ММ-ДД' aria-describedby="helpBlock1" required></input>
+            <span ng-show="search_form.start_date.$invalid && search_form.start_date.$dirty" id="helpBlock1" class="help-block">Введіть правильну дату у форматі РРРР-ММ-ДД!</span>
         </div>
     </div>
 
-    <div class="form-group" ng-class="{'has-success': (search_input.end_date && (search_input.end_date > search_input.start_date))}">
+    <div class="form-group" ng-class="{'has-success': (search_form.end_date.$valid && (search_input.end_date > search_input.start_date)), 'has-error': search_form.end_date.$dirty && (search_form.end_date.$invalid || (search_input.end_date < search_input.start_date))}">
         <label for="end_date" class="col-md-3 col-xs-12 control-label">Введіть кінцеву дату*:</label>
         <div class="col-md-4 col-xs-12">
-            <input name='end_date' ng-model='search_input.end_date' type='date' class="form-control" id="end_date" placeholder="Кінцева дата" required></input>
+            <input name='end_date' ng-model='search_input.end_date' type='date' class="form-control" id="end_date" placeholder="РРРР-ММ-ДД" aria-describedby="helpBlock2" required></input>
+            <span ng-show="search_form.end_date.$dirty && (search_input.end_date < search_input.start_date)" id="helpBlock2" class="help-block">Кінцева дата не може бути менша за початкову дату!</span>
         </div>
     </div>
 
@@ -42,10 +47,7 @@
         </div>
     </div>
 
-    <blockquote>
-        <b></b>
-    </blockquote>
-
+    
     <div class="form-group" ng-show="search_form.$valid && (search_input.court_select_1 || search_input.court_select_2 || search_input.court_select_3)">
         <div class="col-md-offset-3 col-md-4 col-xs-12">
             <a href="/#search_results" type="submit" class="btn btn-success">Зберегти та почати пошук</a>
