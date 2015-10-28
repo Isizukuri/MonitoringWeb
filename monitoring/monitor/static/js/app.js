@@ -1,7 +1,7 @@
 var app = angular.module('MonitoringApp', ['ngRoute']);
 app.config(function ($routeProvider) { 
   $routeProvider 
-    .when('/', { 
+    .when('/search_form', { 
       templateUrl: 'search_form',
       controller: 'SearchFormController' 
     }) 
@@ -15,6 +15,6 @@ app.config(function ($routeProvider) {
       templateUrl: 'final_results' 
     }) 
     .otherwise({ 
-      redirectTo: '/' 
+      redirectTo: '/search_form' 
     }); 
 });

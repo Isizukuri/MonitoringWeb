@@ -20,8 +20,9 @@
     <div class="form-group" ng-class="{'has-success': (search_form.end_date.$valid && (search_input.end_date > search_input.start_date)), 'has-error': search_form.end_date.$dirty && (search_form.end_date.$invalid || (search_input.end_date < search_input.start_date))}">
         <label for="end_date" class="col-md-3 col-xs-12 control-label">Введіть кінцеву дату*:</label>
         <div class="col-md-4 col-xs-12">
-            <input name='end_date' ng-model='search_input.end_date' type='date' class="form-control" id="end_date" placeholder="РРРР-ММ-ДД" aria-describedby="helpBlock2" required></input>
-            <span ng-show="search_form.end_date.$dirty && (search_input.end_date < search_input.start_date)" id="helpBlock2" class="help-block">Кінцева дата не може бути менша за початкову дату!</span>
+            <input name='end_date' ng-model='search_input.end_date' type='date' class="form-control" id="end_date" placeholder="РРРР-ММ-ДД" aria-describedby="lesser novalid" required></input>
+            <span ng-show="search_form.end_date.$dirty && (search_input.end_date < search_input.start_date)" id="lesser" class="help-block">Кінцева дата не може бути менша за початкову дату!</span>
+            <span ng-show="search_form.end_date.$dirty && search_form.end_date.$invalid" id="novalid" class="help-block">Введіть правильну дату у форматі РРРР-ММ-ДД!</span>
         </div>
     </div>
 

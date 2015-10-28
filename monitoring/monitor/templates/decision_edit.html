@@ -1,3 +1,4 @@
+{% verbatim %}
 <!-- Decision Text Panel -->
 <div class='col-md-8'>
     <div class="panel panel-default">
@@ -10,99 +11,121 @@
     </div>
 </div>
 <!-- End Decision Text Panel -->
+
 <!-- Decision Info Edit Form Panel-->
 <div class='col-md-4'>
     <a href="/#search_results" type="submit" class="btn btn-info btn-lg btn-block">До списку рішень</a>
-    <form id='decision_edit_form' method="post" action="/#search_results">
+    <form id='decision_edit_form' method="get" action="/#search_results" name="decision_edit_form" novalidate>
         <div class="panel panel-default" style="margin-top: 5px;">
             <div class="panel-heading">Заповніть необхідні поля</div>
+            
             <div class='panel-body'>
-                <div class="form-group">
+                
+                <div class="form-group" >
                     <label for="competence">Чи належить судове рішення до компетенції відділу?</label>
-                    <div id='competence'>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="competence-true" value="True">Так
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="competence-false" value="False">Ні
-                        </label>
-                    </div>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model='decision_edit.competence' name="competence" id="competence-true" value="True">Так
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model='decision_edit.competence' name="competence" id="competence-false" value="False">Ні
+                    </label>
                 </div>
-                <div class="form-group">
+
+                
+                <div class="form-group" ng-show="decision_edit.competence === 'True'">
                     <label for="court_name">Назва суду</label>
                     <input type="text" class="form-control" id="court_name" readonly>
                 </div>
-                <div class="form-group">
+
+                <div class="form-group" ng-show="decision_edit.competence === 'True'">
                     <label for="date">Дата винесення рішення</label>
                     <input type="date" class="form-control" id="date" placeholder="дд.мм.рррр" readonly>
                 </div>
-                <div class="form-group">
+
+                <div class="form-group" ng-show="decision_edit.competence === 'True'">
                     <label for="case_number">Номер справи</label>
                     <input type="text" class="form-control" id="case_number" placeholder="Введіть номер справи" readonly>
                 </div>
-                <div class="form-group">
-                    <label for="case_number">Позивач(і)</label> <span><a href=''>Додати ще одного позивача</a></span>
-                    <input type="text" class="form-control" id="case_number" placeholder="Введіть ПІБ або назву позивача">
+
+                <div class="form-group" id='claimant' ng-show="decision_edit.competence === 'True'">
+                    <label for="case_number">Позивач</label> <span><a id='claimant_add'>Додати ще одного позивача</a></span>
+                    <input type="text" class="form-control" id="claimant_input" placeholder="Введіть ПІБ або назву позивача">
                 </div>
-                <div class="form-group">
-                    <label for="case_number">Відповідач(і)</label> <span><a href=''>Додати ще одного відповідача</a></span>
-                    <input type="text" class="form-control" id="case_number" placeholder="Введіть ПІБ або назву відповідача">
+
+                <div class="form-group" id='defendant' ng-show="decision_edit.competence === 'True'">
+                    <label for="case_number">Відповідач</label> <span><a href=''>Додати ще одного відповідача</a></span>
+                    <input type="text" class="form-control" id="defendant_input" placeholder="Введіть ПІБ або назву відповідача">
                 </div>
-                <div class="form-group">
-                    <label for="case_number">Третя(і) особа(и)</label> <span><a href=''>Додати ще третю особу</a></span>
-                    <input type="text" class="form-control" id="case_number" placeholder="Введіть ПІБ або назву третьої особи">
+
+                <div class="form-group" id='third_party' ng-show="decision_edit.competence === 'True'">
+                    <label for="case_number">Третя особа</label> <span><a href=''>Додати ще третю особу</a></span>
+                    <input type="text" class="form-control" id="third_party_input" placeholder="Введіть ПІБ або назву третьої особи">
                 </div>
-                <div class="form-group">
+
+                <div class="form-group" id='claim_subject' ng-show="decision_edit.competence === 'True'">
                     <label for="case_number">Предмет позову</label>
-                    <textarea type="text" class="form-control" id="case_number" placeholder="Стисло опишіть предмет позову"></textarea>
+                    <textarea type="text" class="form-control" id="claim_subject_input" placeholder="Стисло опишіть предмет позову"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="competence">Характер позову</label>
-                    <div id='competence'>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="competence-true" value="True">Матеріальний
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="competence-false" value="False">Нематеріальний
-                        </label>
+
+                <div class="form-group" ng-show="decision_edit.competence === 'True'">
+                    <label for="character">Характер позову:</label>
+                    <div>       
+                    
+                    <label class="radio-inline">
+                        <input type="radio" ng-model='decision_edit.character' name="character" id="material-true" value="True">Матеріальний
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model='decision_edit.character' name="character" id="material-false" value="False">Нематеріальний
+                    </label>
                     </div>
                 </div>
-                <div class="form-group">
+
+                <div class="form-group" ng-show="decision_edit.competence === 'True' && decision_edit.character === 'True'">
                     <label for="case_number">Ціна позову, грн.</label>
                     <input type="text" class="form-control" id="case_number" placeholder="Введіть ціну позову у грн.">
                 </div>
-                <div class="form-group">
-                    <label for="competence">Із земельних питань:</label>
-                    <div id='competence'>
+
+                <div class="form-group" ng-show="decision_edit.competence === 'True' && decision_edit.character === 'True'">
+                    <label for="ground">Із земельних питань:</label>
+                    <div>
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="competence-true" value="True">Так
+                            <input type="radio" ng-model='decision_edit
+.ground' name="ground" id="competence-true" value="True">Так
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="competence-false" value="False">Ні
+                            <input type="radio" ng-model='decision_edit
+.ground' name="ground" id="competence-false" value="False">Ні
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+
+                <div class="form-group" ng-show="decision_edit.competence === 'True' && decision_edit
+.ground === 'True'">
                     <label for="case_number">Площа земель, га</label>
                     <input type="text" class="form-control" id="case_number" placeholder="Введіть площу земель у га">
                 </div>
+
             </div>
         </div>
-        <div class="panel panel-default">
+
+        <div class="panel panel-default" ng-show="decision_edit.competence === 'True'">
             <div class="panel-heading">Оцініть законність судового рішення:</div>
+
             <div class='panel-body'>
+
             <div class="form-group">
                 <label for="competence">Оцінка законності:</label>
                 <div id='competence'>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="competence-true" value="True">Законне
+                        <input type="radio" ng-model='decision_edit.unlegal' name="unlegal" id="unlegal-false" value="False">Законне
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="competence-false" value="False">Незаконне
+                        <input type="radio" ng-model='decision_edit.unlegal' name="unlegal" id="unlegal-true" value="True">Незаконне
                     </label>
                 </div>
             </div>
-            <div class="form-group">
+
+            <div class="form-group" ng-show="decision_edit.unlegal === 'True' && decision_edit.competence === 'True'">
                 <label for="competence">Чи підлягає рішення оскарженню?</label>
                 <div id='competence'>
                     <label class="radio-inline">
@@ -130,8 +153,9 @@
 </script>
 	
 	<div style='padding: 5px;'>
-    <a href="/#search_results" type="submit" class="btn btn-info btn-lg btn-block">До списку рішень</a>
+        <a href="/#search_results" type="submit" class="btn btn-info btn-lg btn-block">До списку рішень</a>
 	</div>
 
 </div>
-<!-- End Decision Info Edit Form Panel-->
+<!-- End Decision Info Edit Form Panel -->
+{% endverbatim %}
