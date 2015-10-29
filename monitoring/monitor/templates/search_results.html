@@ -1,3 +1,4 @@
+{% verbatim %}
 <div class='col-md-12'>
     <h3>Результати пошуку</h3>
     <table class="table table-hover">
@@ -9,47 +10,18 @@
             <th>Номер справи</th>
             <th>Назва суду</th>
         </tr>
-        <tr class="success" onclick="document.location = '/#decision_edit';">
-            <td>Опрацьоване судове рішення</td>
-            <td>Опрацьоване судове рішення</td>
-            <td>Опрацьоване судове рішення</td>
-            <td>Опрацьоване судове рішення</td>
-            <td>Опрацьоване судове рішення</td>
-            <td>Опрацьоване судове рішення</td>
+        
+        <tr ng-repeat='decision in decisions' ng-class="{'success': decision.complete === 'True', 'danger': decision.complete === 'False'}" such-href="#/decision/{{$index}}">
+            <td>{{decision.decision_form}}</td>
+            <td>{{decision.adoption_date}}</td>
+            <td>{{decision.force_entry_date}}</td>
+            <td>{{decision.judicial_form}}</td>
+            <td>{{decision.case_number}}</td>
+            <td>{{decision.court_name}}</td>
         </tr>
-        <tr onclick="document.location = '/#decision_edit';">
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-        </tr>
-        <tr class="danger" onclick="document.location = '/#decision_edit';">
-            <td>Помилки в опрацюванні судового рішення</td>
-            <td>Помилки в опрацюванні судового рішення</td>
-            <td>Помилки в опрацюванні судового рішення</td>
-            <td>Помилки в опрацюванні судового рішення</td>
-            <td>Помилки в опрацюванні судового рішення</td>
-            <td>Помилки в опрацюванні судового рішення</td>
-        </tr>
-        <tr onclick="document.location = '/#decision_edit';">
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-        </tr>
-        <tr onclick="document.location = '/#decision_edit';">
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-            <td>Текст</td>
-        </tr>
+    
     </table>
+    
     <nav>
         <ul class="pagination">
             <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -63,3 +35,4 @@
         </ul>
     </nav>
 </div>
+{% endverbatim %}

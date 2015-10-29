@@ -5,8 +5,8 @@
         <div class="panel-heading">
             Текст рішення
         </div>
-        <div class="panel-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quae, ducimus! Aut non saepe est doloribus. Animi laborum incidunt possimus pariatur in. Hic pariatur aliquam, distinctio perspiciatis a id asperiores.
+        <div class="panel-body" ng-bind='dec.text'>
+            
         </div>
     </div>
 </div>
@@ -24,115 +24,117 @@
                 <div class="form-group" >
                     <label for="competence">Чи належить судове рішення до компетенції відділу?</label>
                     <label class="radio-inline">
-                        <input type="radio" ng-model='decision_edit.competence' name="competence" id="competence-true" value="True">Так
+                        <input type="radio" ng-model='dec.competence' name="competence" id="competence-true" value="True">Так
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" ng-model='decision_edit.competence' name="competence" id="competence-false" value="False">Ні
+                        <input type="radio" ng-model='dec.competence' name="competence" id="competence-false" value="False">Ні
                     </label>
                 </div>
 
                 
-                <div class="form-group" ng-show="decision_edit.competence === 'True'">
+                <div class="form-group" ng-show="dec.competence === 'True'">
                     <label for="court_name">Назва суду</label>
-                    <input type="text" class="form-control" id="court_name" readonly>
+                    <input ng-model='dec.court_name' type="text" class="form-control" id="court_name" readonly>
                 </div>
 
-                <div class="form-group" ng-show="decision_edit.competence === 'True'">
-                    <label for="date">Дата винесення рішення</label>
-                    <input type="date" class="form-control" id="date" placeholder="дд.мм.рррр" readonly>
+                <div class="form-group" ng-show="dec.competence === 'True'">
+                    <label for="adoption_date">Дата винесення рішення</label>
+                    <input ng-model='dec.adoption_date' class="form-control" id="adoption_date" readonly>
                 </div>
 
-                <div class="form-group" ng-show="decision_edit.competence === 'True'">
+                <div class="form-group" ng-show="dec.competence === 'True'">
+                    <label for="force_entry_date">Дата набрання рішенням законної сили</label>
+                    <input ng-model='dec.force_entry_date' class="form-control" id="force_entry_date" readonly>
+                </div>
+
+                <div class="form-group" ng-show="dec.competence === 'True'">
                     <label for="case_number">Номер справи</label>
-                    <input type="text" class="form-control" id="case_number" placeholder="Введіть номер справи" readonly>
+                    <input ng-model='dec.case_number' type="text" class="form-control" id="case_number" placeholder="Введіть номер справи" readonly>
                 </div>
 
-                <div class="form-group" id='claimant' ng-show="decision_edit.competence === 'True'">
-                    <label for="case_number">Позивач</label> <span><a id='claimant_add'>Додати ще одного позивача</a></span>
-                    <input type="text" class="form-control" id="claimant_input" placeholder="Введіть ПІБ або назву позивача">
+                <div class="form-group" id='claimant' ng-show="dec.competence === 'True'">
+                    <label for="claimant_input">Позивач</label> <span><a id='claimant_add'>Додати ще одного позивача</a></span>
+                    <input ng-model='dec.claimant' type="text" class="form-control" id="claimant_input" placeholder="Введіть ПІБ або назву позивача">
                 </div>
 
-                <div class="form-group" id='defendant' ng-show="decision_edit.competence === 'True'">
-                    <label for="case_number">Відповідач</label> <span><a href=''>Додати ще одного відповідача</a></span>
-                    <input type="text" class="form-control" id="defendant_input" placeholder="Введіть ПІБ або назву відповідача">
+                <div class="form-group" id='defendant' ng-show="dec.competence === 'True'">
+                    <label for="defendant_input">Відповідач</label> <span><a href=''>Додати ще одного відповідача</a></span>
+                    <input ng-model='dec.defendant' type="text" class="form-control" id="defendant_input" placeholder="Введіть ПІБ або назву відповідача">
                 </div>
 
-                <div class="form-group" id='third_party' ng-show="decision_edit.competence === 'True'">
-                    <label for="case_number">Третя особа</label> <span><a href=''>Додати ще третю особу</a></span>
-                    <input type="text" class="form-control" id="third_party_input" placeholder="Введіть ПІБ або назву третьої особи">
+                <div class="form-group" id='third_party' ng-show="dec.competence === 'True'">
+                    <label for="third_party_input">Третя особа</label> <span><a href=''>Додати ще третю особу</a></span>
+                    <input ng-model='dec.third_party' type="text" class="form-control" id="third_party_input" placeholder="Введіть ПІБ або назву третьої особи">
                 </div>
 
-                <div class="form-group" id='claim_subject' ng-show="decision_edit.competence === 'True'">
-                    <label for="case_number">Предмет позову</label>
-                    <textarea type="text" class="form-control" id="claim_subject_input" placeholder="Стисло опишіть предмет позову"></textarea>
+                <div class="form-group" id='claim_subject' ng-show="dec.competence === 'True'">
+                    <label for="claim_subject_input">Предмет позову</label>
+                    <textarea ng-model='dec.claim_subject' type="text" class="form-control" id="claim_subject_input" placeholder="Стисло опишіть предмет позову"></textarea>
                 </div>
 
-                <div class="form-group" ng-show="decision_edit.competence === 'True'">
-                    <label for="character">Характер позову:</label>
+                <div class="form-group" ng-show="dec.competence === 'True'">
+                    <label>Характер позову:</label>
                     <div>       
                     
                     <label class="radio-inline">
-                        <input type="radio" ng-model='decision_edit.character' name="character" id="material-true" value="True">Матеріальний
+                        <input type="radio" ng-model='dec.material' name="character" id="material-true" value="True">Матеріальний
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" ng-model='decision_edit.character' name="character" id="material-false" value="False">Нематеріальний
+                        <input type="radio" ng-model='dec.material' name="character" id="material-false" value="False">Нематеріальний
                     </label>
                     </div>
                 </div>
 
-                <div class="form-group" ng-show="decision_edit.competence === 'True' && decision_edit.character === 'True'">
-                    <label for="case_number">Ціна позову, грн.</label>
-                    <input type="text" class="form-control" id="case_number" placeholder="Введіть ціну позову у грн.">
+                <div class="form-group" ng-show="dec.competence === 'True' && dec.material === 'True'">
+                    <label for="case_price">Ціна позову, грн.</label>
+                    <input ng-model='dec.case_price' type="text" class="form-control" id="case_price" placeholder="Введіть ціну позову у грн.">
                 </div>
 
-                <div class="form-group" ng-show="decision_edit.competence === 'True' && decision_edit.character === 'True'">
+                <div class="form-group" ng-show="dec.competence === 'True' && dec.material === 'True'">
                     <label for="ground">Із земельних питань:</label>
                     <div>
                         <label class="radio-inline">
-                            <input type="radio" ng-model='decision_edit
-.ground' name="ground" id="competence-true" value="True">Так
+                            <input type="radio" ng-model='dec.ground' name="ground" id="ground-true" value="True">Так
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model='decision_edit
-.ground' name="ground" id="competence-false" value="False">Ні
+                            <input type="radio" ng-model='dec.ground' name="ground" id="ground-false" value="False">Ні
                         </label>
                     </div>
                 </div>
 
-                <div class="form-group" ng-show="decision_edit.competence === 'True' && decision_edit
-.ground === 'True'">
-                    <label for="case_number">Площа земель, га</label>
-                    <input type="text" class="form-control" id="case_number" placeholder="Введіть площу земель у га">
+                <div class="form-group" ng-show="dec.competence === 'True' && dec.ground === 'True'">
+                    <label for="ground_square">Площа земель, га</label>
+                    <input ng-model='dec.ground_square' type="text" class="form-control" id="ground_square" placeholder="Введіть площу земель у га">
                 </div>
 
             </div>
         </div>
 
-        <div class="panel panel-default" ng-show="decision_edit.competence === 'True'">
+        <div class="panel panel-default" ng-show="dec.competence === 'True'">
             <div class="panel-heading">Оцініть законність судового рішення:</div>
 
             <div class='panel-body'>
 
             <div class="form-group">
                 <label for="competence">Оцінка законності:</label>
-                <div id='competence'>
+                <div>
                     <label class="radio-inline">
-                        <input type="radio" ng-model='decision_edit.unlegal' name="unlegal" id="unlegal-false" value="False">Законне
+                        <input type="radio" ng-model='dec.legality' name="legality" id="legal-true" value="True">Законне
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" ng-model='decision_edit.unlegal' name="unlegal" id="unlegal-true" value="True">Незаконне
+                        <input type="radio" ng-model='dec.legality' name="legality" id="legal-false" value="False">Незаконне
                     </label>
                 </div>
             </div>
 
-            <div class="form-group" ng-show="decision_edit.unlegal === 'True' && decision_edit.competence === 'True'">
-                <label for="competence">Чи підлягає рішення оскарженню?</label>
-                <div id='competence'>
+            <div class="form-group" ng-show="dec.legality === 'False' && dec.competence === 'True'">
+                <label>Чи підлягає рішення оскарженню?</label>
+                <div>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="competence-true" value="True">Так
+                        <input ng-model='dec.appealable' type="radio" name="appealable" id="appealable-true" value="True">Так
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="competence-false" value="False">Ні
+                        <input ng-model='dec.appealable' type="radio" name="appealable" id="appealable-false" value="False">Ні
                     </label>
                 </div>
             </div>

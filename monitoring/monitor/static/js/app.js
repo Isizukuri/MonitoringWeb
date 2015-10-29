@@ -1,4 +1,4 @@
-var app = angular.module('MonitoringApp', ['ngRoute']);
+var app = angular.module('MonitoringApp', ['ngRoute', 'mgcrea.ngStrap']);
 app.config(function ($routeProvider) { 
   $routeProvider 
     .when('/search_form', { 
@@ -6,10 +6,12 @@ app.config(function ($routeProvider) {
       controller: 'SearchFormController' 
     }) 
   	.when('/search_results', { 
-      templateUrl: 'django_search_results' 
+      templateUrl: 'django_search_results',
+      controller: 'SearchResultsController' 
     })
-    .when('/decision_edit', { 
-      templateUrl: 'django_decision_edit' 
+    .when('/decision/:decision', { 
+      templateUrl: 'django_decision_edit',
+      controller: 'SearchResultsController'      
     }) 
     .when('/final_results', { 
       templateUrl: 'final_results' 
@@ -18,3 +20,9 @@ app.config(function ($routeProvider) {
       redirectTo: '/search_form' 
     }); 
 });
+
+app.config(function($datepickerProvider) {
+  angular.extend($datepickerProvider.defaults, {
+    dateFormat: 'dd-MM-yyyy'   
+  });
+})
