@@ -1,8 +1,10 @@
 {% verbatim %}
 <div class='col-md-12'>
-    <h3>Результати пошуку</h3>
+    <h3 class='col-md-8'>Результати пошуку</h3>
+    <h5 class='col-md-4'>Всього за вказаними критеріями знайдено {{ decisions().length }} рішень</h5>
     <table class="table table-hover">
         <tr>
+            <th>#</th>
             <th>Форма судового рішення</th>
             <th>Дата ухвалення рішення</th>
             <th>Дата набрання законної сили</th>
@@ -11,8 +13,9 @@
             <th>Назва суду</th>
         </tr>
         
-        <tr ng-repeat='decision in decisions()' ng-class="{'success': decision.complete === true, 'danger': decision.complete === false}">
-            <td><a href="#/decision/{{$index}}">{{decision.decision_form}}</a></td>
+        <tr ng-repeat='decision in decisions()' ng-class="{'success': decision.complete === true, 'danger': decision.complete === false}" ng-click='showDecision($index)'>
+            <td>{{$index + 1}}</td>
+            <td>{{decision.decision_form}}</td>
             <td>{{decision.adoption_date}}</td>
             <td>{{decision.force_entry_date}}</td>
             <td>{{decision.judicial_form}}</td>
@@ -22,17 +25,22 @@
     
     </table>
     
-    <nav>
-        <ul class="pagination">
-            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div>
+        <div class='col-md-9'><button type="button" class="btn btn-success">Сформувати довідку</button></div>
+
+        <nav class='col-md-3'>
+            <ul class="pagination">
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">2</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
 </div>
 {% endverbatim %}
