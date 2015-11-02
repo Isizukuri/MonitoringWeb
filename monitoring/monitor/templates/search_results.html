@@ -11,8 +11,8 @@
             <th>Назва суду</th>
         </tr>
         
-        <tr ng-repeat='decision in decisions' ng-class="{'success': decision.complete === 'True', 'danger': decision.complete === 'False'}" such-href="#/decision/{{$index}}">
-            <td>{{decision.decision_form}}</td>
+        <tr ng-repeat='decision in decisions()' ng-class="{'success': decision.complete === true, 'danger': decision.complete === false}">
+            <td><a href="#/decision/{{$index}}">{{decision.decision_form}}</a></td>
             <td>{{decision.adoption_date}}</td>
             <td>{{decision.force_entry_date}}</td>
             <td>{{decision.judicial_form}}</td>
