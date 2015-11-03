@@ -18,7 +18,7 @@ app.factory('decisionsService', function() {
             ground_square: '',
             legality: '',
             appealable: '',
-            complete: 'True'
+            complete: ''
         },
 
         {
@@ -62,19 +62,27 @@ app.factory('decisionsService', function() {
             ground_square: '',
             legality: '',
             appealable: '',
-            complete: 'False'
+            complete: ''
         },
     ];
 
     var decisionsServ = {};
 
+    var l = decisions.length;
+
     decisionsServ.update = function(index, complete, decision) {
+        if (decision.complete != complete && complete === true) {l -= 1}
+        else if (decision.complete != complete && complete != true) {l += 1}; 
         decision.complete = complete;
         decisions[index] = decision;
     };
 
     decisionsServ.list = function() {
         return decisions;
+    };
+
+    decisionsServ.check = function() {
+        return l;
     };
 
     return decisionsServ;

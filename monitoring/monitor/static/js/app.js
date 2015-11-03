@@ -1,4 +1,4 @@
-var app = angular.module('MonitoringApp', ['ngRoute', 'mgcrea.ngStrap', 'ui.bootstrap']);
+var app = angular.module('MonitoringApp', ['ngRoute', 'mgcrea.ngStrap']);
 app.config(function ($routeProvider) { 
   $routeProvider 
     .when('/search_form', { 
