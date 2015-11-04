@@ -1,10 +1,11 @@
 app.controller('SearchResultsController', ['$scope', '$location', '$routeParams', 'decisionsService', function($scope, $location, $routeParams, decisionsService) {
 
-    $scope.decisions = decisionsService.list;
+    $scope.decisions = decisionsService.list();
 
     
-    $scope.showDecision = function(index) {
+    $scope.showDecision = function(index, page) {
         $location.path('/decision/' + index);
+
     };
 
     $scope.flag = decisionsService.check();

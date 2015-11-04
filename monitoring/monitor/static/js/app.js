@@ -1,4 +1,4 @@
-var app = angular.module('MonitoringApp', ['ngRoute', 'mgcrea.ngStrap']);
+var app = angular.module('MonitoringApp', ['ngRoute', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination', 'ngAnimate']);
 app.config(function ($routeProvider) { 
   $routeProvider 
     .when('/search_form', { 

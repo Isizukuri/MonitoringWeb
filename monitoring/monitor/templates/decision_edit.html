@@ -19,7 +19,7 @@
             
             <div class='panel-body'>
                 
-                <div class="form-group" ng-class="{'has-success': decision_edit_form.competence.$valid, 'has-warning': decision_edit_form.competence.$invalid && decision_edit_form.competence.$pristine, 'has-error': decision_edit_form.competence.$invalid && decision_edit_form.competence.$dirty}">
+                <div class="form-group" ng-class="{'has-success': decision_edit_form.competence.$valid, 'has-warning': decision_edit_form.competence.$invalid && decision_edit_form.competence.$pristine, 'has-error': decision_edit_form.competence.$invalid && decision_edit_form.competence.$touched}">
                     <label for="competence">Чи належить судове рішення до компетенції відділу?</label>
                     <div>
                         <label class="radio-inline">
@@ -52,33 +52,42 @@
                     <input ng-model='dec.case_number' type="text" class="form-control" id="case_number" placeholder="Введіть номер справи" readonly>
                 </div>
 
-                <div class="form-group" id='claimant' ng-show="dec.competence === 'True'" ng-repeat='claimant in dec.claimants track by $index' ng-class="{'has-success': claimant_subform.claimant.$valid, 'has-warning': claimant_subform.claimant.$invalid && claimant_subform.claimant.$pristine, 'has-error': claimant_subform.claimant.$invalid && claimant_subform.claimant.$dirty}">
+                <div class="form-group" id='claimant' ng-show="dec.competence === 'True'" ng-repeat='claimant in dec.claimants track by $index' ng-class="{'has-success': claimant_subform.claimant.$valid, 'has-warning': claimant_subform.claimant.$invalid && claimant_subform.claimant.$pristine, 'has-error': claimant_subform.claimant.$invalid && claimant_subform.claimant.$touched}">
                     <ng-form name='claimant_subform'>
-                    <label for="claimant_input">Позивач {{ $index+1 }}</label> <span><a ng-click='add_claimant()' id='claimant_add'>Додати ще одного позивача</a></span>
+                    <label for="claimant_input">Позивач {{ $index+1 }}</label>
+                    <span><a ng-show='$index==0' ng-click='add_claimant()' id='claimant_add'>Додати ще одного позивача</a></span>
+                    <span><a ng-show='$index!=0' ng-click='del_claimant($index, 1)' href=''>Видалити позивача</a></span>
                     <input ng-model='dec.claimants[$index]' type="text" class="form-control" id="claimant_input" placeholder="Введіть ПІБ або назву позивача" ng-readonly="expression" ng-required="dec.competence === 'True'" name='claimant'>
+                    <span class="error" ng-show="claimant_subform.claimant.$error.required && claimant_subform.claimant.$touched">Це поле є обов’язковим!</span>
                     </ng-form>
                 </div>
 
-                <div class="form-group" id='defendant' ng-show="dec.competence === 'True'"  ng-repeat='defendant in dec.defendants track by $index' ng-class="{'has-success': defendant_subform.defendant.$valid, 'has-warning': defendant_subform.defendant.$invalid && defendant_subform.defendant.$pristine, 'has-error': defendant_subform.defendant.$invalid && defendant_subform.defendant.$dirty}">
+                <div class="form-group" id='defendant' ng-show="dec.competence === 'True'"  ng-repeat='defendant in dec.defendants track by $index' ng-class="{'has-success': defendant_subform.defendant.$valid, 'has-warning': defendant_subform.defendant.$invalid && defendant_subform.defendant.$pristine, 'has-error': defendant_subform.defendant.$invalid && defendant_subform.defendant.$touched}">
                     <ng-form name='defendant_subform'>
-                        <label for="defendant_input">Відповідач {{ $index+1 }}</label> <span><a ng-click='add_defendant()' href=''>Додати ще одного відповідача</a></span>
+                        <label for="defendant_input">Відповідач {{ $index+1 }}</label> 
+                        <span><a ng-show='$index==0' ng-click='add_defendant()' href=''>Додати ще одного відповідача</a></span>
+                        <span><a ng-show='$index!=0' ng-click='del_defendant($index, 1)' href=''>Видалити відповідача</a></span>
                         <input ng-model='dec.defendants[$index]' type="text" class="form-control" id="defendant_input" placeholder="Введіть ПІБ або назву відповідача" ng-required="dec.competence === 'True'" name='defendant'>
+                        <span class="error" ng-show="defendant_subform.defendant.$error.required && defendant_subform.defendant.$touched">Це поле є обов’язковим!</span>
                     </ng-form>
                 </div>
 
-                <div class="form-group" id='third_party' ng-show="dec.competence === 'True'" ng-repeat='third_party in dec.third_parties track by $index' ng-class="{'has-success': third_party_subform.third_party.$valid, 'has-warning': third_party_subform.third_party.$invalid && third_party_subform.third_party.$pristine, 'has-error': third_party_subform.third_party.$invalid && third_party_subform.third_party.$dirty}">
+                <div class="form-group" id='third_party' ng-show="dec.competence === 'True'" ng-repeat='third_party in dec.third_parties track by $index' ng-class="{'has-success': third_party_subform.third_party.$valid, 'has-warning': third_party_subform.third_party.$invalid && third_party_subform.third_party.$pristine, 'has-error': third_party_subform.third_party.$invalid && third_party_subform.third_party.$touched}">
                     <ng-form name='third_party_subform'>
-                        <label for="third_party_input">Третя особа {{ $index+1 }}</label> <span><a ng-click='add_third_party()' href=''>Додати ще третю особу</a></span>
-                        <input ng-model='dec.third_parties[$index]' type="text" class="form-control" id="third_party_input" placeholder="Введіть ПІБ або назву третьої особи" ng-required="dec.competence === 'True'" name='third_party'>
+                        <label for="third_party_input">Третя особа {{ $index+1 }}</label>
+                        <span><a ng-show='$index==0' ng-click='add_third_party()' href=''>Додати ще третю особу</a></span>
+                        <span><a ng-show='$index!=0' ng-click='del_third_party($index, 1)' href=''>Видалити третю особу</a></span>
+                        <input ng-model='dec.third_parties[$index]' type="text" class="form-control" id="third_party_input" placeholder="Введіть ПІБ або назву третьої особи" name='third_party'>
                     </ng-form>
                 </div>
 
-                <div class="form-group" id='claim_subject' ng-show="dec.competence === 'True'" ng-class="{'has-success': decision_edit_form.claim_subject.$valid, 'has-warning': decision_edit_form.claim_subject.$invalid && decision_edit_form.claim_subject.$pristine, 'has-error': decision_edit_form.claim_subject.$invalid && decision_edit_form.claim_subject.$dirty}">
+                <div class="form-group" id='claim_subject' ng-show="dec.competence === 'True'" ng-class="{'has-success': decision_edit_form.claim_subject.$valid, 'has-warning': decision_edit_form.claim_subject.$invalid && decision_edit_form.claim_subject.$pristine, 'has-error': decision_edit_form.claim_subject.$invalid && decision_edit_form.claim_subject.$touched}">
                     <label for="claim_subject_input">Предмет позову</label>
                     <textarea ng-model='dec.claim_subject' type="text" class="form-control" id="claim_subject_input" placeholder="Стисло опишіть предмет позову" ng-required="dec.competence === 'True'" name='claim_subject'></textarea>
+                    <span class="error" ng-show="decision_edit_form.claim_subject.$error.required && decision_edit_form.claim_subject.$touched">Це поле є обов’язковим!</span>
                 </div>
 
-                <div class="form-group" ng-show="dec.competence === 'True'" ng-class="{'has-success': decision_edit_form.character.$valid, 'has-warning': decision_edit_form.character.$invalid && decision_edit_form.character.$pristine, 'has-error': decision_edit_form.character.$invalid && decision_edit_form.character.$dirty}">
+                <div class="form-group" ng-show="dec.competence === 'True'" ng-class="{'has-success': decision_edit_form.character.$valid, 'has-warning': decision_edit_form.character.$invalid && decision_edit_form.character.$pristine, 'has-error': decision_edit_form.character.$invalid && decision_edit_form.character.$touched}">
                     <label>Характер позову:</label>
                     <div>       
                     
@@ -91,12 +100,14 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-show="dec.competence === 'True' && dec.material === 'True'" ng-class="{'has-success': decision_edit_form.case_price.$valid, 'has-warning': decision_edit_form.case_price.$invalid && decision_edit_form.case_price.$pristine, 'has-error': decision_edit_form.case_price.$invalid && decision_edit_form.case_price.$dirty}">
+                <div class="form-group" ng-show="dec.competence === 'True' && dec.material === 'True'" ng-class="{'has-success': decision_edit_form.case_price.$valid, 'has-warning': decision_edit_form.case_price.$invalid && decision_edit_form.case_price.$pristine, 'has-error': decision_edit_form.case_price.$invalid && decision_edit_form.case_price.$touched}">
                     <label for="case_price">Ціна позову, грн.</label>
-                    <input ng-model='dec.case_price' type="text" class="form-control" id="case_price" placeholder="Введіть ціну позову у грн." ng-required="dec.material === 'True'" type="number" name='case_price'>
+                    <input ng-model='dec.case_price' class="form-control" id="case_price" placeholder="Введіть ціну позову у грн." ng-required="dec.material === 'True'" type="number" name='case_price'>
+                    <span class="error" ng-show="decision_edit_form.case_price.$error.number">Це поле повинно містити лише цифри!</span>
+                    <span class="error" ng-show="decision_edit_form.case_price.$error.required && decision_edit_form.case_price.$touched">Це поле є обов’язковим!</span>
                 </div>
 
-                <div class="form-group" ng-show="dec.competence === 'True' && dec.material === 'True'" ng-class="{'has-success': decision_edit_form.ground.$valid, 'has-warning': decision_edit_form.ground.$invalid && decision_edit_form.ground.$pristine, 'has-error': decision_edit_form.ground.$invalid && decision_edit_form.ground.$dirty}">
+                <div class="form-group" ng-show="dec.competence === 'True' && dec.material === 'True'" ng-class="{'has-success': decision_edit_form.ground.$valid, 'has-warning': decision_edit_form.ground.$invalid && decision_edit_form.ground.$pristine, 'has-error': decision_edit_form.ground.$invalid && decision_edit_form.ground.$touched}">
                     <label for="ground">Із земельних питань:</label>
                     <div>
                         <label class="radio-inline">
@@ -108,9 +119,11 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-show="dec.competence === 'True' && dec.ground === 'True'" ng-class="{'has-success': decision_edit_form.ground_square.$valid, 'has-warning': decision_edit_form.ground_square.$invalid && decision_edit_form.ground_square.$pristine, 'has-error': decision_edit_form.ground_square.$invalid && decision_edit_form.ground_square.$dirty}">
+                <div class="form-group" ng-show="dec.competence === 'True' && dec.ground === 'True'" ng-class="{'has-success': decision_edit_form.ground_square.$valid, 'has-warning': decision_edit_form.ground_square.$invalid && decision_edit_form.ground_square.$pristine, 'has-error': decision_edit_form.ground_square.$invalid && decision_edit_form.ground_square.$touched}">
                     <label for="ground_square">Площа земель, га</label>
-                    <input ng-model='dec.ground_square' type="text" class="form-control" id="ground_square" placeholder="Введіть площу земель у га" ng-required="dec.ground === 'True'" type="number" name='ground_square'>
+                    <input ng-model='dec.ground_square' class="form-control" id="ground_square" placeholder="Введіть площу земель у га" ng-required="dec.ground === 'True'" type="number" name='ground_square'>
+                    <span class="error" ng-show="decision_edit_form.ground_square.$error.number">Це поле повинно містити лише цифри!</span>
+                    <span class="error" ng-show="decision_edit_form.ground_square.$error.required && decision_edit_form.ground_square.$touched">Це поле є обов’язковим!</span>
                 </div>
 
             </div>
@@ -121,7 +134,7 @@
 
             <div class='panel-body'>
 
-            <div class="form-group" ng-class="{'has-success': decision_edit_form.legality.$valid, 'has-warning': decision_edit_form.legality.$invalid && decision_edit_form.legality.$pristine, 'has-error': decision_edit_form.legality.$invalid && decision_edit_form.legality.$dirty}">
+            <div class="form-group" ng-class="{'has-success': decision_edit_form.legality.$valid, 'has-warning': decision_edit_form.legality.$invalid && decision_edit_form.legality.$pristine, 'has-error': decision_edit_form.legality.$invalid && decision_edit_form.legality.$touched}">
                 <label for="competence">Оцінка законності:</label>
                 <div>
                     <label class="radio-inline">
@@ -133,7 +146,7 @@
                 </div>
             </div>
 
-            <div class="form-group" ng-show="dec.legality === 'False' && dec.competence === 'True'" ng-class="{'has-success': decision_edit_form.appealable.$valid, 'has-warning': decision_edit_form.appealable.$invalid && decision_edit_form.appealable.$pristine, 'has-error': decision_edit_form.appealable.$invalid && decision_edit_form.appealable.$dirty}">
+            <div class="form-group" ng-show="dec.legality === 'False' && dec.competence === 'True'" ng-class="{'has-success': decision_edit_form.appealable.$valid, 'has-warning': decision_edit_form.appealable.$invalid && decision_edit_form.appealable.$pristine, 'has-error': decision_edit_form.appealable.$invalid && decision_edit_form.appealable.$touched}">
                 <label>Чи підлягає рішення оскарженню?</label>
                 <div>
                     <label class="radio-inline">
@@ -149,7 +162,7 @@
     </form>
 
     <div style='padding: 5px;'>
-    <a href='#/search_results' ng-click='update(ind, (decision_edit_form.$dirty && decision_edit_form.$valid), dec)' id='decision_edit_form_submit' class="btn btn-success btn-lg btn-block">Зберегти</a>
+    <a href='#/search_results' ng-click='update(ind, (decision_edit_form.$touched && decision_edit_form.$valid), dec)' id='decision_edit_form_submit' class="btn btn-success btn-lg btn-block">Зберегти</a>
     </div>
 
 

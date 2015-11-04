@@ -1,7 +1,7 @@
 {% verbatim %}
 <div class='col-md-12'>
     <h3 class='col-md-8'>Результати пошуку</h3>
-    <h5 class='col-md-4'>Всього за вказаними критеріями знайдено {{ decisions().length }} рішень</h5>
+    <h5 class='col-md-4'>Всього за вказаними критеріями знайдено <strong>{{ decisions.length }}</strong> рішень</h5>
     <table class="table table-hover">
         <tr>
             <th>#</th>
@@ -13,8 +13,8 @@
             <th>Назва суду</th>
         </tr>
         
-        <tr ng-repeat='decision in decisions()' ng-class="{'success': decision.complete === true, 'danger': decision.complete === false}" ng-click='showDecision($index)'>
-            <td>{{$index + 1}}</td>
+        <tr dir-paginate="decision in decisions | itemsPerPage: 10" ng-class="{'success': decision.complete === true, 'danger': decision.complete === false}" ng-click='showDecision(decision.id)'>
+            <td>{{decision.id + 1}}</td>
             <td>{{decision.decision_form}}</td>
             <td>{{decision.adoption_date}}</td>
             <td>{{decision.force_entry_date}}</td>
@@ -26,9 +26,9 @@
     </table>
     
     <div>
-        <div class='col-md-9' ng-show='flag===0'><button type="button" class="btn btn-success">Сформувати довідку</button></div>   
+        <div class='col-md-9'><button type="button" class="btn btn-success" ng-show='flag===0'>Сформувати довідку</button></div>
+        <div class='col-md-3'><dir-pagination-controls boundary-links='true'></dir-pagination-controls></div>
     </div>
-
   
 </div>
 {% endverbatim %}

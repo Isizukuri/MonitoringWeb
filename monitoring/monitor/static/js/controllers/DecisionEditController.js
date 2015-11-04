@@ -14,12 +14,23 @@ app.controller('DecisionEditController', ['$scope', '$routeParams', 'decisionsSe
         $scope.dec.claimants.push('');
     };
 
+    $scope.del_claimant = function(index, howmany) {
+        $scope.dec.claimants.splice(index, howmany);
+    }
+
     $scope.add_defendant = function() {
         $scope.dec.defendants.push('');
+    };
+
+    $scope.del_defendant = function(index, howmany) {
+        $scope.dec.defendants.splice(index, howmany);
     };
 
     $scope.add_third_party = function() {
         $scope.dec.third_parties.push('');
     };
 
+    $scope.del_third_party = function(index, howmany) {
+        $scope.dec.third_parties.splice(index, howmany);
+    };
 }])
