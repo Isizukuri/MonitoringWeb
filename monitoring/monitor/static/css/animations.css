@@ -58,3 +58,49 @@
   from { opacity:1; }
   to { opacity:0; }
 }
+
+/* Form animation */
+
+    .form-group.ng-enter{
+        -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        position: relative;
+        display: block;
+        overflow: hidden;
+        text-overflow: clip;
+        white-space:nowrap;
+    }
+
+
+    .form-group.ng-leave {
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        position: relative;
+        display: block;
+        overflow: hidden;
+        text-overflow: clip;
+        white-space:nowrap;
+    }
+
+     
+    .form-group.ng-leave.ng-leave-active,
+    .form-group.ng-enter {
+        opacity: 0;
+        width: 0px;
+        height: 0px;
+    }
+     
+    .form-group.ng-enter.ng-enter-active, 
+    .form-group.ng-leave {
+        opacity: 1;
+        width: 150px;
+        height: 30px;
+    }
+
+/* End form animation */

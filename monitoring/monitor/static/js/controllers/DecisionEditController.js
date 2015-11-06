@@ -1,4 +1,4 @@
-app.controller('DecisionEditController', ['$scope', '$routeParams', 'decisionsService', function($scope, $routeParams, decisionsService) {
+app.controller('DecisionEditController', ['$scope', '$rootScope', '$routeParams', 'decisionsService', function($scope, $rootScope, $routeParams, decisionsService) {
 
     $scope.decisions = decisionsService.list();
 

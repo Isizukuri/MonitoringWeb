@@ -20,6 +20,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'monitor.views.index', name='index'),
     url(r'^search_form$', 'monitor.views.search_form', name='search_form'),
-    url(r'^django_search_results$', 'monitor.views.search_results', name='search_results'),
-    url(r'^django_decision_edit$', 'monitor.views.decision_edit', name='decision_edit'),
+    url(r'^django_search_results$',
+        'monitor.views.search_results', name='search_results'),
+    url(r'^django_decision_edit$',
+        'monitor.views.decision_edit', name='decision_edit'),
+    url(r'^json$', 'monitor.views.json', name='json'),
 ]
