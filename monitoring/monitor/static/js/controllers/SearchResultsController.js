@@ -1,8 +1,4 @@
-app.controller('SearchResultsController', ['$scope', '$rootScope', '$location', '$routeParams', 'decisionsService', 'decisionsGetService', function($scope, $rootScope, $location, $routeParams, decisionsService, decisionsGetService) {
-
-    decisionsGetService.success(function(data) {
-        $rootScope.dec = data;
-    });
+app.controller('SearchResultsController', ['$scope', '$rootScope', '$location', '$routeParams', 'decisionsService', function($scope, $rootScope, $location, $routeParams, decisionsService) {
 
     $scope.decisions = decisionsService.list();
 
