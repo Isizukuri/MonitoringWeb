@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import time
 
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -23,6 +24,7 @@ def decision_edit(request):
 
 
 def json(request):
+    time.sleep(10)
     result = [{
         'id': 0,
         'decision_form': 'Рішення',
