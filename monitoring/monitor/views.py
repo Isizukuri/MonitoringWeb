@@ -43,7 +43,7 @@ def json(request):
         'ground_square': '',
         'legality': '',
         'appealable': '',
-        'complete': '1'
+        'complete': ''
     },
 
         {
