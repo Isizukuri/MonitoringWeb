@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json as Json
+import requests
 import time
+from datetime import datetime
+from urlparse import urljoin
 
 from django.http import JsonResponse
 from django.shortcuts import render
+
+from bs4 import BeautifulSoup as BS
 # Create your views here.
 
 
@@ -23,416 +29,75 @@ def decision_edit(request):
     return render(request, 'decision_edit.html')
 
 
-def json(request):
-    time.sleep(10)
-    result = [{
-        'id': 0,
-        'decision_form': 'Рішення',
-        'adoption_date': '01.01.2012',
-        'force_entry_date': '10.01.2012',
-        'judicial_form': 'Цивільне',
-        'case_number': '1',
-        'court_name': 'Рівненський апеляційний суд',
-        'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-        'competence': '',
-        'claimants': [''],
-        'defendants': [''],
-        'third_parties': [''],
-        'claim_subject': '',
-        'material': '',
-        'case_price': '',
-        'ground': '',
-        'ground_square': '',
-        'legality': '',
-        'appealable': '',
-        'complete': ''
-    },
+def decisions_get(request):
+    if request.method == 'POST':
 
-        {
-            'id': 1,
-            'decision_form': 'Постанова',
-            'adoption_date': '02.02.2013',
-            'force_entry_date': '12.02.2013',
-            'judicial_form': 'Адміністративне',
-            'case_number': '2',
-            'court_name': 'Рівненський окружний адміністративний суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        data = Json.loads(request.body)
 
-        {
-            'id': 2,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        url = 'http://www.reyestr.court.gov.ua/'
+        court_region = 18
+        default_keyword = [u'дитин*', u'дітей', u'дитяч*', u'*літн*',
+                           u'неповнолітн*', u'малолітн*', u'батьківськ*', u'усиновл*', u'освіт*',
+                           u'оздоров*', u'навчальн*']
 
-        {
-            'id': 3,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        start_date = datetime.strptime(
+            data['start_date'].split('T', 1)[0], "%Y-%m-%d")
+        end_date = datetime.strptime(
+            data['end_date'].split('T', 1)[0], "%Y-%m-%d")
+        key_words = data.get('key_words')
+        courts = data['courts']
 
-        {
-            'id': 4,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        search_parameters = {'SearchExpression': u'прокуратура',
+                             'CourtRegion[]': court_region,
+                             'CourtName[]': courts[0],
+                             'RegDateBegin': datetime.strftime(start_date, "%d.%m.%Y"),
+                             'RegDateEnd': datetime.strftime(end_date, "%d.%m.%Y"),
+                             'VRType[]': '2',
+                             'VRType[]': '3',
+                             'VRType[]': '5',
+                             'PagingInfo.ItemsPerPage': '100',
+                             'Liga': 'false'}
 
-        {
-            'id': 5,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        edr_response = requests.post(url, search_parameters)
 
-        {
-            'id': 6,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        soup = BS(edr_response.text)
+        results_table = soup.find('table', id='tableresult')
+        if results_table:
+            rows = results_table.findAll('tr')[1:]
 
-        {
-            'id': 7,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        results = []
 
-        {
-            'id': 8,
-            'decision_form': 'Постанова',
-            'adoption_date': '02.02.2013',
-            'force_entry_date': '12.02.2013',
-            'judicial_form': 'Адміністративне',
-            'case_number': '2',
-            'court_name': 'Рівненський окружний адміністративний суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
+        i = 1
+        for row in rows:
+            decision = {}
+            decision['id'] = rows.index(row)
+            decision['case_number'] = row.find(
+                'td', {"class": "CaseNumber tr" + str(i)}).text
+            decision['decision_form'] = row.find(
+                'td', {"class": "CSType tr" + str(i)}).text
+            decision['adoption_date'] = row.find(
+                'td', {"class": "RegDate tr" + str(i)}).text
+            decision['force_entry_date'] = row.find(
+                'td', {"class": "LawDate tr" + str(i)}).text
+            decision['court_name'] = row.find(
+                'td', {"class": "CourtName tr" + str(i)}).text
+            decision['judicial_form'] = row.find(
+                'td', {"class": "CSType tr" + str(i)}).text
+            decision['decision_form'] = row.find(
+                'td', {"class": "VRType tr" + str(i)}).text
+            decision['claimants'] = ['']
+            decision['defendatns'] = ['']
+            decision['third_parties'] = ['']
+            link = row.find('td').a['href']
+            child_page = BS(requests.get(urljoin(url, link)).text)
+            if child_page.body.find('body'):
+                decision['text'] = child_page.body.find(
+                    'body').text
+            results.append(decision)
+            if i == 1:
+                i += 1
+            else:
+                i = 1
+            time.sleep(1)
 
-        {
-            'id': 9,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-        {
-            'id': 10,
-            'decision_form': 'Постанова',
-            'adoption_date': '02.02.2013',
-            'force_entry_date': '12.02.2013',
-            'judicial_form': 'Адміністративне',
-            'case_number': '2',
-            'court_name': 'Рівненський окружний адміністративний суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-
-        {
-            'id': 11,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-        {
-            'id': 12,
-            'decision_form': 'Постанова',
-            'adoption_date': '02.02.2013',
-            'force_entry_date': '12.02.2013',
-            'judicial_form': 'Адміністративне',
-            'case_number': '2',
-            'court_name': 'Рівненський окружний адміністративний суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-
-        {
-            'id': 13,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-        {
-            'id': 14,
-            'decision_form': 'Постанова',
-            'adoption_date': '02.02.2013',
-            'force_entry_date': '12.02.2013',
-            'judicial_form': 'Адміністративне',
-            'case_number': '2',
-            'court_name': 'Рівненський окружний адміністративний суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-
-        {
-            'id': 15,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-        {
-            'id': 16,
-            'decision_form': 'Постанова',
-            'adoption_date': '02.02.2013',
-            'force_entry_date': '12.02.2013',
-            'judicial_form': 'Адміністративне',
-            'case_number': '2',
-            'court_name': 'Рівненський окружний адміністративний суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    },
-
-        {
-            'id': 17,
-            'decision_form': 'Ухвала',
-            'adoption_date': '03.03.2014',
-            'force_entry_date': '13.03.2014',
-            'judicial_form': 'Господарське',
-            'case_number': '3',
-            'court_name': 'Рівненський апеляційний господарський суд',
-            'text': 'Lorem ipsum Nisi voluptate ut culpa exercitation.',
-            'competence': '',
-            'claimants': [''],
-            'defendants': [''],
-            'third_parties': [''],
-            'claim_subject': '',
-            'material': '',
-            'case_price': '',
-            'ground': '',
-            'ground_square': '',
-            'legality': '',
-            'appealable': '',
-            'complete': ''
-    }
-    ]
-    return JsonResponse(result, safe=False)
+        return JsonResponse(results, safe=False)

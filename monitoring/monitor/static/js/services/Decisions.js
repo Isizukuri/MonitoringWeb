@@ -2,8 +2,8 @@ app.factory('decisionsService', ['$rootScope', '$http', function($rootScope, $ht
 
     var decisionsServ = {};
 
-    decisionsServ.getDecisions = function(url, start_date, end_date, courts, key_words) {
-        return $http.post(url, {'start_date': start_date, 'end_date': end_date, 'courts': courts, 'key_words': key_words})
+    decisionsServ.getDecisions = function(url, parameters) {
+        return $http.post(url, parameters)
             .success(function(data) {
                 return data;
             })

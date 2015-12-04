@@ -24,5 +24,5 @@ urlpatterns = [
         'monitor.views.search_results', name='search_results'),
     url(r'^django_decision_edit$',
         'monitor.views.decision_edit', name='decision_edit'),
-    url(r'^json$', 'monitor.views.json', name='json'),
+    url(r'^json$', 'monitor.views.decisions_get', name='json'),
 ]
